@@ -4,6 +4,9 @@ module.exports = function(app){
             app.controllers.Account.findAll,
             app.middleware.ResponseIdLookup
         ],
+        'POST|/Account/Login':[
+            app.controllers.Account.login
+        ],
         'GET|/Account/:id':[
             app.controllers.Account.findOne,
             app.middleware.ResponseIdLookup

@@ -20,8 +20,13 @@ module.exports = function(app){
 
         ret[name].findAll = function(req, res, next){
             return model.fetchAll().then(function(values){
-                res.body = values.models;
-                next();
+
+                let data = {
+                    success: true,
+                    data:values,
+                    message:''
+                };
+                return res.status(200).json(data);
                 //return res.status(200).json(data);
                 //end the dumb
             })
@@ -35,7 +40,12 @@ module.exports = function(app){
                 .fetch()
                 .then((value) =>{
                     res.body = value;
-                    next();
+                    let data = {
+                        success: true,
+                        data:value,
+                        message:''
+                    };
+                    return res.status(200).json(data);
                     //return res.status(200).json(data);
                     //end the dumb
                 })

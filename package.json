@@ -8,12 +8,14 @@
     "start": "set NODE_ENV=production&&node app.js"
   },
   "dependencies": {
+    "audit": "0.0.6",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "bookshelf": "^0.13.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "fix": "0.0.6",
     "geo-tools": "^0.1.2",
     "geodist": "^0.2.1",
     "glob": "^7.1.2",
