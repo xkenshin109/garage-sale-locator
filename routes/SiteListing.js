@@ -14,6 +14,10 @@ module.exports = function(app){
         'POST|/SiteListing/Address':[
             app.controllers.SiteListing.addAddress
         ],
+
+        'POST|/SiteListing/Favorite':[
+            app.controllers.SiteListing.toggleFavorite
+        ],
         'POST|/SiteListing/':[
             app.controllers.SiteListing.addOne
         ],

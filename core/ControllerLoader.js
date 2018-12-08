@@ -39,7 +39,6 @@ module.exports = function(app){
             return model.where({id:Number(req.params.id)})
                 .fetch()
                 .then((value) =>{
-                    res.body = value;
                     let data = {
                         success: true,
                         data:value,

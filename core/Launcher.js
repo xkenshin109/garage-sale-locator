@@ -8,8 +8,18 @@ let Promise = require('bluebird');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let path = require('path');
+
 let Launcher = function(){
     let self = this;
+    console.log(__dirname);
+    let key  = fs.readFileSync(path.resolve(__dirname, '../encryption/key.pem'),'utf8');
+    let cert = fs.readFileSync(path.resolve(__dirname, '../encryption/server.crt'),'utf8');
+    //let ca = fs.readFileSync(path.resolve(__dirname, '../encryption/secondary.crt'),'utf8');
+    let options = {
+        key: key,
+        cert: cert,
+        // ca: ca
+    };
     self.app = express();
     self.app.use(bodyParser.json({limit:'4mb'}));
 
@@ -28,6 +38,7 @@ let Launcher = function(){
      self.app.use(express.static(path.join(__dirname, 'public')));
     require('./RouteLoader')(self.app);
     self.httpServer = http.createServer(self.app);
+  //  self.httpsServer = https.createServer(options,self.app);
 };
 
 Launcher.prototype.run = function(seedsTorun){
@@ -41,7 +52,7 @@ Launcher.prototype.run = function(seedsTorun){
             return self.app.seeder.run(seedsTorun);
         })
         .then(()=>{
-            self.httpServer.listen(self.app.config.port);
+            return self.httpServer.listen(8080,'10.0.0.247');
         });
-}
+};
 module.exports = new Launcher();

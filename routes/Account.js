@@ -7,6 +7,12 @@ module.exports = function(app){
         'POST|/Account/Login':[
             app.controllers.Account.login
         ],
+        'GET|/Account/:id/Favorites':[
+           app.controllers.SiteListing.getFavorites
+        ],
+        'GET|/Account/:id/SiteListings':[
+            app.controllers.SiteListing.getSiteListings
+        ],
         'GET|/Account/:id':[
             app.controllers.Account.findOne,
             app.middleware.ResponseIdLookup
@@ -19,6 +25,9 @@ module.exports = function(app){
         ],
         'DELETE|/Account/:id':[
             app.controllers.Account.delete
+        ],
+        'POST|/RegisterAccount':[
+            app.controllers.Account.register
         ]
     };
     return endpoints;
