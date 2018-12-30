@@ -50,6 +50,28 @@ module.exports = function(app){
                    });;
             });
     };
+    ret.myListings = function(req,res,next){
+        return app.models["SiteListing"]
+            .where({Account_id:req.params.id})
+            .fetchAll()
+            .then((sites)=>{
+                return Promise.mapSeries(sites.models,site=>{
+                    let s = site.attributes;
+                    return site.favorite(req.params.id)
+                        .then((fav)=>{
+                            s.favorite = fav;
+                            return s;
+                        })
+                })
+                    .then((sites)=>{
+                        return res.status(200).json({
+                            success:true,
+                            data:sites,
+                            message:''
+                        });
+                    });
+            });
+    };
     ret.toggleFavorite = function(req,res,next){
         return app.models['FavoriteMapping']
             .where({SiteListing_id: req.body.SiteListing_id,Account_id: req.body.Account_id})
@@ -87,7 +109,6 @@ module.exports = function(app){
             })
     };
     ret.addAddress = function(req,res,next){
-
         geocode(req.body.address,function(data){
             let location = req.body;
             location.longitude = data.lng;
@@ -97,7 +118,22 @@ module.exports = function(app){
                 .save()
                 .then((site)=>{
                     site.newListing();
-                    return res.status(200).json(site);
+                    return app.models['SiteListing']
+                        .where({id:site.get('id')})
+                        .fetch()
+                        .then((s)=>{
+                            let ret = s.attributes;
+                            return s.favorite(req.body.Account_id)
+                                .then((r)=>{
+                                    ret.favorite = r;
+                                    return res.status(200).json({
+                                        success:true,
+                                        message:'',
+                                        data: ret
+                                    });
+                                });
+
+                        });
                 });
         },{key:'AIzaSyADNttT4qWxwAnfYF_CdTJ9d66zAb248mY'});
 

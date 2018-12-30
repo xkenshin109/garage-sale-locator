@@ -4,13 +4,13 @@ module.exports = {
             zergdb: {
                 client: 'mysql',
                 connection:{
-                  host:'35.184.89.109',
-                  user:'zerg-admin',
+                  //host:'35.232.46.203',
+                  user:'gls-admin',
                   password:'THRunavdBFr3vK4',
-                  database:'zergdb',
+                  database:'garage_sail_db',
                   charset:'utf8',
                   timezone:'UTC',
-                 // socketPath:"/cloudsql/{project-id}:us-central1:{database}"
+                  socketPath:"/cloudsql/garage-sail-locator:us-central1:garage-sail-locator-db"
                 },
                 // connection: {
                 //     host: '107.180.58.44',

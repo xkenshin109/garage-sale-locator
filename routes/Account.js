@@ -10,6 +10,9 @@ module.exports = function(app){
         'GET|/Account/:id/Favorites':[
            app.controllers.SiteListing.getFavorites
         ],
+        'GET|/Account/:id/MyListings':[
+            app.controllers.SiteListing.myListings
+        ],
         'GET|/Account/:id/SiteListings':[
             app.controllers.SiteListing.getSiteListings
         ],

@@ -21,6 +21,7 @@ let Launcher = function(){
         // ca: ca
     };
     self.app = express();
+    //self.app.enable('trust proxy');
     self.app.use(bodyParser.json({limit:'4mb'}));
 
 
@@ -52,7 +53,7 @@ Launcher.prototype.run = function(seedsTorun){
             return self.app.seeder.run(seedsTorun);
         })
         .then(()=>{
-            return self.httpServer.listen(8080,'10.0.0.247');
+            return self.httpServer.listen(8080);
         });
 };
 module.exports = new Launcher();
