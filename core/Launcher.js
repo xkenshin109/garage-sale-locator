@@ -53,7 +53,7 @@ Launcher.prototype.run = function(seedsTorun){
             return self.app.seeder.run(seedsTorun);
         })
         .then(()=>{
-            return self.httpServer.listen(self.app.config.port);
+            return self.httpServer.listen(self.app.config.port,'192.168.171.1');
         });
 };
 module.exports = new Launcher();
