@@ -1,8 +1,8 @@
 "use strict";
 const moment = require('moment');
 module.exports = function(app){
-    return app.databases.zergdb.Model.extend({
-        tableName: 'SiteListing',
+    return app.databases.hunterDb.Model.extend({
+        tableName: 'Hunts',
         favorites: function(){
             return this.hasMany(app.models['FavoriteMapping']);
         },
@@ -20,15 +20,6 @@ module.exports = function(app){
                 this.putActiveQueue();
             }
             return;
-        },
-        putActiveQueue: function(){
-            return app.models['ActiveQueue'].forge({
-                SiteListing_id: this.get('id'),
-                RemoveTime: moment().format('YYYY-MM-DD HH:mm:ss')
-            }).save()
-                .then((res)=>{
-                    return res;
-                });
         }
     })
 };

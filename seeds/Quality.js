@@ -1,0 +1,22 @@
+module.exports = [
+    {
+        id:1,
+        name:'Poor',
+        description:'Poor'
+    },
+    {
+        id:2,
+        name:'Good',
+        description:'Good'
+    },
+    {
+        id:3,
+        name:'Great',
+        description:'Great'
+    },
+    {
+        id:4,
+        name:'Excellent',
+        description:'Excellent'
+    }
+];

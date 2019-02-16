@@ -1,13 +1,13 @@
 module.exports = {
     database:
         {
-            zergdb: {
+            hunterDb: {
                 client: 'mysql',
                 connection:{
                   //host:'35.232.46.203',
                   user:'gls-admin',
                   password:'THRunavdBFr3vK4',
-                  database:'garage_sail_db',
+                  database:'garagehunterdb',
                   charset:'utf8',
                   timezone:'UTC',
                   socketPath:"/cloudsql/garage-sail-locator:us-central1:garage-sail-locator-db"

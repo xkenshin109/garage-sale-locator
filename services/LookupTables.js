@@ -3,7 +3,7 @@ let Promise = require('bluebird');
 
 let LookupTablesService = function(app){
     let self = this;
-    self.tables = ['GameType','Rank','Game'];
+    self.tables = ['Quality'];
     self.app = app;
 };
 

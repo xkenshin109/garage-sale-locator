@@ -1,14 +1,14 @@
 module.exports = {
     database:
         {
-            zergdb: {
+            hunterDb: {
                 client: 'mysql',
                 connection: {
                     // host: '104.197.211.98',
                     host: 'localhost',
                     user: 'root',
                     password: 'bacon123',
-                    database: 'garage_sale_locator_db',
+                    database: 'garagehunterdb',
                     charset: 'utf8',
                     timezone: 'UTC'
                 },

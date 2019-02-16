@@ -1,33 +1,28 @@
 module.exports = function(app){
     let endpoints = {
-        'GET|/SiteListings/':[
-            app.controllers.SiteListing.findAll,
+        'GET|/Hunts/':[
+            app.controllers.Hunts.findAll,
             app.middleware.ResponseIdLookup
         ],
-        'POST|/SiteListing/NearbySites':[
-            app.controllers.SiteListing.nearbySites
-        ],
-        'GET|/SiteListing/:id':[
-            app.controllers.SiteListing.findOne,
+        'GET|/Hunts/:id':[
+            app.controllers.Hunts.findOne,
             app.middleware.ResponseIdLookup
         ],
-        'POST|/SiteListing/Address':[
-            app.controllers.SiteListing.addAddress
+        'POST|/Hunts/Address':[
+            app.controllers.Hunts.addAddress
         ],
-
-        'POST|/SiteListing/Favorite':[
-            app.controllers.SiteListing.toggleFavorite
+        'POST|/Hunts/Favorite':[
+            app.controllers.Hunts.toggleFavorite
         ],
-        'POST|/SiteListing/':[
-            app.controllers.SiteListing.addOne
+        'POST|/Hunts/':[
+            app.controllers.Hunts.addOne
         ],
-        'PUT|/SiteListing/:id':[
-            app.controllers.SiteListing.putOne
+        'PUT|/Hunts/:id':[
+            app.controllers.Hunts.putOne
         ],
-        'DELETE|/SiteListing/:id':[
-            app.controllers.SiteListing.delete
+        'DELETE|/Hunts/:id':[
+            app.controllers.Hunts.delete
         ]
-
     };
     return endpoints;
 };

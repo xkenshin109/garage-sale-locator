@@ -34,4 +34,4 @@ Seeder.prototype.run = function(seedsToRun){
     return current;
 };
 
-module.exports = function(app) { return new Seeder(app);}
+module.exports = function(app) { return new Seeder(app);};

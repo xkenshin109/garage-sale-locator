@@ -9,10 +9,10 @@ module.exports = function(app){
     ret.getFavorites = function(req,res,next){
         return app.models['FavoriteMapping']
             .where({Account_id: req.params.id})
-            .fetchAll({withRelated:'site'})
+            .fetchAll({withRelated:'hunt'})
             .then((favs)=>{
                return Promise.mapSeries(favs.models,fav=>{
-                    let f = fav.related('site').attributes;
+                    let f = fav.related('hunt').attributes;
                     f.favorite = true;
                     return f;
                })
@@ -28,7 +28,7 @@ module.exports = function(app){
     };
     ret.getSiteListings = function(req,res,next){
 
-        return app.models['SiteListing']
+        return app.models['Hunts']
             .where({active:1})
             .fetchAll({withRelated:['favorites']})
             .then((sites)=>{
@@ -51,7 +51,7 @@ module.exports = function(app){
             });
     };
     ret.myListings = function(req,res,next){
-        return app.models["SiteListing"]
+        return app.models["Hunts"]
             .where({Account_id:req.params.id})
             .fetchAll()
             .then((sites)=>{
@@ -113,12 +113,12 @@ module.exports = function(app){
             let location = req.body;
             location.longitude = data.lng;
             location.latitude = data.lat;
-            return app.models['SiteListing']
+            return app.models['Hunts']
                 .forge(location)
                 .save()
                 .then((site)=>{
                     site.newListing();
-                    return app.models['SiteListing']
+                    return app.models['Hunts']
                         .where({id:site.get('id')})
                         .fetch()
                         .then((s)=>{
@@ -143,34 +143,35 @@ module.exports = function(app){
             lon: req.body.longitude,
             lat: req.body.latitude
         };
-        return app.models['ActiveQueue']
-            .fetchAll({withRelated:'siteListing'})
-            .then(function(values){
-                return Promise.mapSeries(values.models,(site)=>{
-                    let targetLocation ={
-                        lon: site.related('siteListing').get('longitude'),
-                        lat: site.related('siteListing').get('latitude')
-                    };
-                    let miles = geodist(currentLocation,targetLocation,{unit:'miles'});
-                    if(miles < MAX_MILES){ //Filters here
-                        return site.related('siteListing');
-                    }else{
-                        return null;
-                    }
-
-                })
-                    .then((results)=>{
-                        let data = {
-                            success:true,
-                            data: _.filter(results,r=>{return r!== null;}),
-                            message:''
-                        };
-                        return res.status(200).json(data);
-                    });
-            })
-            .catch((error)=>{
-                return res.status(500).json(error.message);
-            });
+        return res.status(200);
+        // return app.models['ActiveQueue']
+        //     .fetchAll({withRelated:'siteListing'})
+        //     .then(function(values){
+        //         return Promise.mapSeries(values.models,(site)=>{
+        //             let targetLocation ={
+        //                 lon: site.related('siteListing').get('longitude'),
+        //                 lat: site.related('siteListing').get('latitude')
+        //             };
+        //             let miles = geodist(currentLocation,targetLocation,{unit:'miles'});
+        //             if(miles < MAX_MILES){ //Filters here
+        //                 return site.related('siteListing');
+        //             }else{
+        //                 return null;
+        //             }
+        //
+        //         })
+        //             .then((results)=>{
+        //                 let data = {
+        //                     success:true,
+        //                     data: _.filter(results,r=>{return r!== null;}),
+        //                     message:''
+        //                 };
+        //                 return res.status(200).json(data);
+        //             });
+        //     })
+        //     .catch((error)=>{
+        //         return res.status(500).json(error.message);
+        //     });
     };
     return ret;
 };

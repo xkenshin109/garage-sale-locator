@@ -8,13 +8,13 @@ module.exports = function(app){
             app.controllers.Account.login
         ],
         'GET|/Account/:id/Favorites':[
-           app.controllers.SiteListing.getFavorites
+           app.controllers.Hunts.getFavorites
         ],
         'GET|/Account/:id/MyListings':[
-            app.controllers.SiteListing.myListings
+            app.controllers.Hunts.myListings
         ],
         'GET|/Account/:id/SiteListings':[
-            app.controllers.SiteListing.getSiteListings
+            app.controllers.Hunts.getSiteListings
         ],
         'GET|/Account/:id':[
             app.controllers.Account.findOne,

@@ -11,7 +11,6 @@ let path = require('path');
 
 let Launcher = function(){
     let self = this;
-    console.log(__dirname);
     let key  = fs.readFileSync(path.resolve(__dirname, '../encryption/key.pem'),'utf8');
     let cert = fs.readFileSync(path.resolve(__dirname, '../encryption/server.crt'),'utf8');
     //let ca = fs.readFileSync(path.resolve(__dirname, '../encryption/secondary.crt'),'utf8');
@@ -33,7 +32,7 @@ let Launcher = function(){
     self.app.middleware = require('./MiddlewareLoader')(self.app);
     self.app.controllers = require('./ControllerLoader')(self.app);
     self.app.services = require('./ServiceLoader')(self.app);
-    self.app.seeder = require('./Seeder')(self.app);
+    // self.app.seeder = require('./Seeder')(self.app);
     // self.app.use(express.urlencoded({extended:false}));
     // self.app.use(cookieParser());
      self.app.use(express.static(path.join(__dirname, 'public')));
@@ -49,9 +48,9 @@ Launcher.prototype.run = function(seedsTorun){
         .then(()=>{
             return self.app.migrator.run();
         })
-        .then(()=>{
-            return self.app.seeder.run(seedsTorun);
-        })
+        // .then(()=>{
+        //   /s/  return self.app.seeder.run(seedsTorun);
+        // })
         .then(()=>{
             return self.httpServer.listen(self.app.config.port,'192.168.171.1');
         });
