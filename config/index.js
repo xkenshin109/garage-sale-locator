@@ -3,7 +3,6 @@ let glob = require('glob');
 let path = require('path');
 
 let ret = {};
-console.log(path);
 
 glob.sync("./config/*.js").forEach((file)=>{
 

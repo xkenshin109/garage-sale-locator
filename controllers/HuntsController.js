@@ -111,31 +111,20 @@ module.exports = function(app){
     ret.addAddress = function(req,res,next){
         geocode(req.body.address,function(data){
             let location = req.body;
+            if(location.id === 0) delete location.id;
             location.longitude = data.lng;
             location.latitude = data.lat;
             return app.models['Hunts']
                 .forge(location)
                 .save()
                 .then((site)=>{
-                    site.newListing();
-                    return app.models['Hunts']
-                        .where({id:site.get('id')})
-                        .fetch()
-                        .then((s)=>{
-                            let ret = s.attributes;
-                            return s.favorite(req.body.Account_id)
-                                .then((r)=>{
-                                    ret.favorite = r;
-                                    return res.status(200).json({
-                                        success:true,
-                                        message:'',
-                                        data: ret
-                                    });
-                                });
-
-                        });
+                    return res.status(200).json(site.attributes);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                    return res.status(400).json({success:false,message:err,data:{}});
                 });
-        },{key:'AIzaSyADNttT4qWxwAnfYF_CdTJ9d66zAb248mY'});
+        },{key:'AIzaSyCmZRYHuT-013ghocxRfYZsSbVEfzxr3dg'});
 
     };
     ret.nearbySites = function(req,res,next){
