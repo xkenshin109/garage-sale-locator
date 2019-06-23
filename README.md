@@ -1,1 +1,1 @@
-# ZergApi
+# Garage Sale Locator
